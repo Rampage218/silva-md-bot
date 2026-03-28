@@ -229,26 +229,29 @@ async function handleMessages(sock, message) {
             msg.imageMessage?.caption ||
             msg.videoMessage?.caption || '';
 
-        // ── AFK auto-reply (fires before prefix check, not for owner's own messages) ──
+                // ── AFK auto-reply (fires before prefix check, not for owner's own messages) ──
         if (!message.key.fromMe) {
             const afkPlugin = plugins.find(p => p.commands?.includes('afk') && typeof p.isAfk === 'function');
             if (afkPlugin?.isAfk()) {
                 const { reason, since } = afkPlugin.getAfkData();
-                const th = getActiveTheme()?.global || {};
+                const duration = formatDuration(Date.now() - since);
                 await safeSend(sock, jid, {
                     text: [
-                        `🤖 *${th.botName || 'Silva MD'}*`,
+                        `😎 *Lex: Personal Assistant*`,
                         ``,
-                        `${th.greet2 ? `_${th.greet2}!_` : `_Hey!_`} My owner is currently *AFK*.`,
-                        `📝 *Reason:* ${reason}`,
-                        `⏱ *Away for:* ${formatDuration(Date.now() - since)}`,
+                        `Hello there! I am Lex, Emmanuel Amani's personal assistant.`,
+                        `Emmanuel is currently unavailable because: *${reason}*.`,
+                        `He has been away for *${duration}*.`,
                         ``,
-                        `_${th.footer || th.botName || 'Silva MD'}_`
+                        `He will reply to your message as soon as he is back. If this is an absolute emergency, please give him a call.`,
+                        ``,
+                        `_Thank you!_`
                     ].join('\n'),
                 }, { quoted: message });
                 return;
             }
         }
+
 
         // ── Anti-link (group only, bot must be admin) ────────────────────────
         if (isGroup && !message.key.fromMe) {
