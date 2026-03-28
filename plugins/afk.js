@@ -22,23 +22,17 @@ module.exports = {
     group:       true,
     private:     true,
 
-    isAfk:      () => afkActive,
-    getAfkData: () => ({ reason: afkReason, since: afkSince }),
-
-    run: async (sock, message, args, ctx) => {
-        const { safeSend, contextInfo } = ctx;
-        const cmdText = (message.message?.conversation || message.message?.extendedTextMessage?.text || '')
-            .trim().split(/\s+/)[0].replace(/^[^a-zA-Z]*/, '').toLowerCase();
-
-        if (cmdText === 'afk') {
-            afkActive = true;
-            afkReason  = args.join(' ') || 'No specified rationale provided.';
-            afkSince   = Date.now();
+            if (cmdText === 'back') {
+            if (!afkActive) {
+                await sock.sendMessage(message.key.remoteJid, { text: '✅ I am ready! AFK mode was not active anyway.', contextInfo }, { quoted: message });
+                return;
+            }
+            const duration = formatDuration(Date.now() - afkSince);
+            afkActive = false;
             await safeSend({
-                text: `🛡️ *Stewardship Mode Activated*\n\n📝 *Rationale:* ${afkReason}\n\n_All incoming correspondence will be intercepted by Lex until the proprietor's return._`,
+                text: `👋 *Welcome back, Emmanuel!* \n\nYou were gone for *${duration}*. I have logged all missed messages for your review.`,
                 contextInfo
             }, { quoted: message });
-            return;
         }
 
         if (cmdText === 'back') {
