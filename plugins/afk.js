@@ -1,7 +1,7 @@
 'use strict';
 
 let afkActive = false;
-let afkReason  = 'No reason given';
+let afkReason  = 'No specified rationale';
 let afkSince   = 0;
 
 function formatDuration(ms) {
@@ -17,7 +17,7 @@ function formatDuration(ms) {
 
 module.exports = {
     commands:    ['afk', 'back'],
-    description: 'Owner AFK mode — bot auto-replies to everyone while you are away',
+    description: 'Initiates or terminates the Incommunicado protocol.',
     permission:  'owner',
     group:       true,
     private:     true,
@@ -32,10 +32,10 @@ module.exports = {
 
         if (cmdText === 'afk') {
             afkActive = true;
-            afkReason  = args.join(' ') || 'No reason given';
+            afkReason  = args.join(' ') || 'No specified rationale provided.';
             afkSince   = Date.now();
             await safeSend({
-                text: `🌙 *AFK Mode Activated*\n\n📝 Reason: ${afkReason}\n\n_Anyone who messages will receive an auto-reply until you use .back_`,
+                text: `🛡️ *Stewardship Mode Activated*\n\n📝 *Rationale:* ${afkReason}\n\n_All incoming correspondence will be intercepted by Lex until the proprietor's return._`,
                 contextInfo
             }, { quoted: message });
             return;
@@ -43,13 +43,13 @@ module.exports = {
 
         if (cmdText === 'back') {
             if (!afkActive) {
-                await sock.sendMessage(message.key.remoteJid, { text: '✅ AFK mode is not currently active.', contextInfo }, { quoted: message });
+                await sock.sendMessage(message.key.remoteJid, { text: '✅ The Incommunicado protocol is not currently engaged.', contextInfo }, { quoted: message });
                 return;
             }
             const duration = formatDuration(Date.now() - afkSince);
             afkActive = false;
             await safeSend({
-                text: `🌸 *Welcome back!*\n\n⏱ You were away for *${duration}*.`,
+                text: `🏛️ *Proprietor Returned*\n\n⏱ Emmanuel Amani was indisposed for a duration of *${duration}*.\n\n_Lex is presently compiling your Briefing Report..._`,
                 contextInfo
             }, { quoted: message });
         }
