@@ -8,25 +8,18 @@ const moment  = require('moment-timezone');
 const baileys = require('@whiskeysockets/baileys');
 const { proto, generateMessageIDV2 } = baileys;
 
-const REPO    = 'https://github.com/SilvaTechB/silva-md-v4';
-const WEBSITE = 'https://silvatech.co.ke';
+const REPO    = 'Confidential: Proprietor Access Only';
+const WEBSITE = 'Proprietor: Emmanuel Amani';
 const TZ      = 'Africa/Nairobi';
 
 // ── Category definitions ─────────────────────────────────────────────────────
 const CATEGORIES = [
-    { icon: '⬇️',  name: 'Downloaders',        cmds: ['yt','tiktok','instagram','facebook','apk','catbox'] },
-    { icon: '🎵',  name: 'Music & Audio',       cmds: ['play','shazam','lyrics','toaudio'] },
-    { icon: '🤖',  name: 'AI & Intelligence',   cmds: ['ai','imagine','translate','define','tts','calc','shorten','gitclone','anime','manga'] },
-    { icon: '🌍',  name: 'Search & Info',       cmds: ['wiki','country','ip','currency','time','weather','numberfact'] },
-    { icon: '🖼️', name: 'Media & Stickers',    cmds: ['sticker','vv','ascii','qrcode','react'] },
-    { icon: '👥',  name: 'Group Management',    cmds: ['kick','promote','demote','ban','unban','banlist','tagall','hidetag','poll','lock','unlock','link','revoke','setname','setdesc','broadcast'] },
-    { icon: '👋',  name: 'Welcome & Events',    cmds: ['welcome','goodbye','setwelcome','setgoodbye'] },
-    { icon: '🛡️', name: 'Protection',          cmds: ['antidemote','antidelete','antilink','anticall','antivv','autoreply','blocklist','afk'] },
-    { icon: '😄',  name: 'Fun & Entertainment', cmds: ['joke','fact','riddle','meme','quote','advice','compliment','flip','bible','hello'] },
-    { icon: '🔒',  name: 'Privacy & Utilities', cmds: ['password','morse','base64','tempmail','virus','eval'] },
-    { icon: '📊',  name: 'Status & Profile',    cmds: ['save','spp','presence','autojoin'] },
-    { icon: '📰',  name: 'Channels',            cmds: ['newsletter','followchannel','unfollowchannel','channelinfo'] },
-    { icon: 'ℹ️', name: 'Bot Info',            cmds: ['alive','ping','uptime','owner','getjid','repo','remind'] },
+    { icon: '🧠',  name: 'Cognitive AI',        cmds: ['ai','imagine','study','translate','define','summarize'] },
+    { icon: '👁️',  name: 'Privacy Sovereignty', cmds: ['vv','getstatus','save','blocklist','afk'] },
+    { icon: '⚖️',  name: 'Group Governance',    cmds: ['kick','promote','demote','ban','hidetag','lock','unlock'] },
+    { icon: '⬇️',  name: 'Universal Harvest',   cmds: ['yt','tiktok','instagram','facebook','fetch'] },
+    { icon: '📰',  name: 'Information Nexus',   cmds: ['wiki','weather','news','currency'] },
+    { icon: '⚙️',  name: 'System Integrity',    cmds: ['alive','ping','uptime','owner'] },
 ];
 
 function box(title, lines) {
