@@ -229,7 +229,7 @@ async function handleMessages(sock, message) {
             msg.imageMessage?.caption ||
             msg.videoMessage?.caption || '';
 
-                // ── AFK auto-reply (fires before prefix check, not for owner's own messages) ──
+                        // ── Lex: Simplified AFK auto-reply ──
         if (!message.key.fromMe) {
             const afkPlugin = plugins.find(p => p.commands?.includes('afk') && typeof p.isAfk === 'function');
             if (afkPlugin?.isAfk()) {
@@ -239,18 +239,17 @@ async function handleMessages(sock, message) {
                     text: [
                         `😎 *Lex: Personal Assistant*`,
                         ``,
-                        `Hello there! I am Lex, Emmanuel Amani's personal assistant.`,
-                        `Emmanuel is currently unavailable because: *${reason}*.`,
-                        `He has been away for *${duration}*.`,
+                        `Hey there! Thanks for texting Emmanuel Amani.`,
+                        `I am Lex, his personal assistant. My boss is currently unavailable because: *${reason}*.`,
+                        `He has been gone for *${duration}*.`,
                         ``,
-                        `He will reply to your message as soon as he is back. If this is an absolute emergency, please give him a call.`,
-                        ``,
-                        `_Thank you!_`
+                        `He will be back, but if it's urgent please call him. Thank you!!`
                     ].join('\n'),
                 }, { quoted: message });
                 return;
             }
         }
+
 
 
         // ── Anti-link (group only, bot must be admin) ────────────────────────
